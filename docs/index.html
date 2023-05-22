@@ -5,9 +5,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="index.mjs"/></script>
+    <script src="./index.js"/></script>
+    <script>
+        window.onload = function(){
+            console.log('hey2');
+            document.getElementById("btnSubmit").addEventListener('click', async(e)=>{
+                let searchString = document.getElementById("searchString").value;
+                let result = '';
+                console.log("searchString=>", searchString);
+                try{
+                    result = await getData(searchString);
+                    console.log('Price--->' + JSON.stringify(result));
+                }
+                catch(error){
+                    console.log('Error');
+                    result = error.message;
+                }
+                finally{
+                    document.getElementById("searchResult").value = 'INR ' + result.price;
+                }
+            })
+        };
+    </script>
+
 </head>
+    
 <body>
-    Hi
+    <div id="formComponent">
+        <form id="formSubmit">
+            <input type="text" id="searchString" placeholder="Search here"/>
+            <input type="button" value="Submit" id="btnSubmit"/>
+            <input type="text" id="searchResult" placeholder="Search result appears here"/>
+        </form>     
+    </div>  
 </body>
+    
 </html>
